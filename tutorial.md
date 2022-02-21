@@ -209,7 +209,7 @@ def bird (birdid: int, response: Response):
         return "Bird with bird id %s not found." % (birdid)
 ```
 
-> Note: The code for this step is in the [maini7.py](./main7.py) file.
+> Note: The code for this step is in the [main7.py](./main7.py) file.
 
 To consider/discuss:
  - [ ] What did the API return before we added the default status code?
@@ -265,22 +265,27 @@ To consider/discuss:
  ```python
 @api.get("/birds")
 def birds (starts_with: str):
-    if starts_with == None
+    if starts_with == None:
         return db
     else:
-        for key, item in db:
+        hits = {"birds": {}}
+        for key, item in db["birds"].items():
             if item.startswith(starts_with):
-                return item
-        raise HTTPException(status_code=404, detail="Bird with name that starts with %s not found" % (starts_with))
+                hits["birds"][key] = item
+        hits["count"] = len (hits["birds"])
+        if hits["count"] == 0:
+            response.status_code = status.HTTP_404_NOT_FOUND
+        else:
+            return hits
 ```
 
 3. Point your favorite web-browser to `http://127.0.0.1:8000/birds`.
 
 To consider/discuss:
- - [ ] Why do we get the result we get?
+ - [ ] Why do we get a status code of 422 Unprocessable Entity, and the message "field required"?
 
 4. Browse https://fastapi.tiangolo.com/tutorial/query-params/#optional-parameters
-5. Make the query parameter  `starts_with` in the collections resource "/birds" optional. Import the module `Optional` from the `typing`module, and modify the function "birds":
+5. Make the query parameter  `starts_with` in the collections resource "/birds" optional. Import the module `Optional` from the `typing` module, and modify the function "birds":
  ```python
 from fastapi import FastAPI, HTTPException
 from typing import Optional
@@ -313,8 +318,13 @@ def birds (starts_with: Optional[str] = None):
 To consider/discuss:
  - [ ] What happens? Why?
 
-2. Do this to give the client a more sane reply, so they quickly understand they misspelled a query parameter:
+2. Browse
+   * https://github.com/tiangolo/fastapi/issues/1190
+   * https://github.com/tiangolo/fastapi/pull/1297
 
+To consider/discuss:
+ - [ ] Should an API warn the client that they are using a non-recognized query parameter or not?
+ - [ ] If so, is 404 Not Found a reasonable status code to return?
 
 ## 9. Documenting the API
 
