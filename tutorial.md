@@ -415,6 +415,7 @@ The above situation occurs naturally in all API:s where you have multiple reques
 
 1. Read https://fastapi.tiangolo.com/async/
 2. Read https://stackabuse.com/python-async-await-tutorial/
+3. Watch: https://youtu.be/iG6fr81xHKA
 
 ## NN. Package the app as a Docker image
 
