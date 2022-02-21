@@ -214,7 +214,7 @@ def bird (birdid: int, response: Response):
 To consider/discuss:
  - [ ] What did the API return before we added the default status code?
 
-### 7.2 Return the HTTP status code 404 Not found by setting the response status code (NOT WORKING)
+### 7.2 Return the HTTP status code 404 Not found by setting the response status code
 
 1. Add the proper HTTP status code for when an item in a collection resource is not found by returning the HTTP status code **404 Not found**.  Import the FastAPI modules `Response` and `status`:
 ```python
