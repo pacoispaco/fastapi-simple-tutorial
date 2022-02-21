@@ -1,6 +1,8 @@
 # FastAPI tutorial
 
-This project is a streamlined tuturial in building HTTP/JSON API:s with FastAPI. It grew out of my own studies and preparations for a workshop on FastAPI I held at work.
+This project is a simple tuturial for getting started with writing web API:s with FastAPI. It grew out of my own studies and preparations for a workshop on FastAPI I held at work.
+
+[Here is the tutorial](tutorial.md).
 
 ## Requirements
 
