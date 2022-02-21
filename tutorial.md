@@ -230,8 +230,6 @@ def bird (birdid: int, response: Response):
         response.status_code = status.HTTP_404_NOT_FOUND
 ```
 
-NOTE: This still returns 200 OK. I must be missing something. See: https://fastapi.tiangolo.com/advanced/response-change-status-code/#use-a-response-parameter
-
 ### 7.3 Return the HTTP status code 404 Not found by raising an exception and providing a message
 
 1. Point your favorite web-browser to `http://127.0.0.1:8000/birds/9999`.
