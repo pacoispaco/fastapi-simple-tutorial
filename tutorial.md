@@ -303,7 +303,7 @@ def birds (starts_with: Optional[str] = None):
                 hits["birds"][key] = item
         hits["count"] = len (hits["birds"])
         if hits["count"] == 0:
-            raise HTTPException(status_code=404, detail="Bird with name that starts with '%s' not found" % (starts_with))
+            response.status_code = status.HTTP_404_NOT_FOUND
         else:
             return hits
 ```
