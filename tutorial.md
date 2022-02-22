@@ -344,7 +344,7 @@ def root ():
 
 ...
 
-def birds (starts_with: Optional[str])):
+def birds (starts_with: Optional[str] = None)):
     """Return a collection of all the birds. If no query parameter is specified all birds are returned."""
 
 ...
@@ -361,7 +361,7 @@ To consider/discuss:
 
 3. Add more extensive documentation with examples to a function handling a specific resource:
 ```python
-def birds (starts_with: Optional[str]):
+def birds (starts_with: Optional[str] = None):
     """Return a collection of all the birds. If no query parameter is specified all birds are returned.
 
 Examples:
@@ -377,15 +377,65 @@ Examples:
 
 TBD!
 
-### 9.3 Documenting path and query parameters
+### 9.3 Documenting query and path parameters
 
 1: Browse https://fastapi.tiangolo.com/tutorial/body-fields/#declare-model-attributes
-2: Add documen
+2: Add documentation on the query parameter `starts_with` by first importing `Query` from `fastapi` and then using `Query` in the declaration of `starts_with` and provide a `description`:
+```python
+from fastapi import FastAPI, status, Response, Query
+
+...
+
+def birds (starts_with: Optional[str] = Query(None, description="Return birds whose names begin with the string `starts_with`.")):
+    """Return a collection of all the birds. If no query parameter is specified all birds are returned.
+
+...
+```
+
+1. Add documentation on the path parameter `{bird_id}` by first importing `Path`from `fastapi` and then using `Path` in the declaration of `bird_id` and provide a `description`. Note that you have to declare the `response` parameter before the `bird_id` parameter when you do this:
+```python
+from fastapi import FastAPI, status, Response, Query, Path
+
+...
+
+def bird (response: Response, birdid: int = Path (None, description="`birdid` is a five-digit number that identifies a specific bird.")):
+    """Return the bird with the given `birdid`."""
+
+... 
+```
 
 ### 9.4 Adding general documentation on the API
 
 1. Browse https://fastapi.tiangolo.com/tutorial/metadata/
-Meta (Markdown) & tags
+
+2. Add som documentation of the entire API like this:
+```python
+from fastapi import FastAPI, status, Response, Path, Query
+from typing import Optional
+
+description="""
+## A very simple Bird API.
+
+This is a simple HTTP/JSON API implemented in Python & FastAPI that demonstrates some of the features in FastAPI. Among other things it demonstrates how to:
+* Write a simple FastAPI application.
+* Implement an API with a couple of resources.
+* Implement support for different HTTP methods and return specific HTTP status codes.
+* Use resource path parameters.
+* Use resource query parameters.
+* Write documentation for the auto-generated Open API Spec.
+"""
+
+api = FastAPI(
+    title="The Birds API",
+    description= description,
+    version="0.0.1")
+
+...
+```
+
+To consider/discuss:
+ - [ ] Point your favorite web-browser to `http://127.0.0.1:8000/docs` and look at the documentation for the API.
+ - [ ] What kind of syntax can you use in the docstring?
 
 ## 10 Specifying default values for path and query parameters
 
